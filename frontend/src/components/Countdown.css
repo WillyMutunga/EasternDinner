@@ -1,0 +1,34 @@
+/* Countdown Styles extracted from Home.css */
+.countdown-container {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+}
+
+.countdown-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 70px;
+}
+
+.countdown-value {
+    font-size: 2.5rem;
+    font-weight: 600;
+    font-family: var(--font-body);
+    color: #fff;
+    line-height: 1;
+}
+
+.countdown-label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 0.5rem;
+}
+
+.countdown-expired {
+    font-size: 2rem;
+    color: var(--color-gold);
+}

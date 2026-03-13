@@ -1,0 +1,96 @@
+.ticket-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 500px;
+    margin: 2rem auto;
+    overflow: hidden;
+    border: 1px solid #eee;
+}
+
+.ticket-header {
+    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+    color: white;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ticket-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.status-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 99px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.status-badge.paid { background: #10b981; color: white; }
+.status-badge.pending { background: #f59e0b; color: white; }
+
+.ticket-body {
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+}
+
+.ticket-info {
+    flex: 1;
+}
+
+.info-group {
+    margin-bottom: 1.25rem;
+}
+
+.info-group:last-child { margin-bottom: 0; }
+
+.info-group label {
+    display: block;
+    font-size: 0.75rem;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.25rem;
+}
+
+.info-group p {
+    margin: 0;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #1f2937;
+}
+
+.ticket-qr {
+    background: #f9fafb;
+    padding: 1rem;
+    border-radius: 12px;
+    border: 1px solid #eee;
+}
+
+.ticket-footer {
+    background: #f3f4f6;
+    padding: 1rem;
+    text-align: center;
+    border-top: 1px dashed #d1d5db;
+}
+
+.ticket-footer p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #4b5563;
+}
+
+@media (max-width: 480px) {
+    .ticket-body {
+        flex-direction: column;
+        text-align: center;
+    }
+}

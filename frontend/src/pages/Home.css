@@ -1,0 +1,169 @@
+.home-page {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Event Details Section */
+.details-section {
+    padding: 6rem 0;
+    background-color: var(--color-bg-main);
+}
+
+.section-title {
+    font-size: 2.5rem;
+    margin-bottom: 4rem;
+    text-align: center;
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.detail-card {
+    background-color: var(--color-bg-card);
+    padding: 2.5rem 2rem;
+    border-radius: 8px;
+    text-align: center;
+    border-top: 3px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.detail-card:hover {
+    transform: translateY(-10px);
+    border-top-color: var(--color-gold);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.detail-icon {
+    width: 40px;
+    height: 40px;
+    color: var(--color-gold);
+    margin-bottom: 1.5rem;
+}
+
+.detail-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    color: var(--color-text-main);
+}
+
+.detail-card p {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* Validation Section */
+.validation-section {
+    padding: 6rem 0;
+    background-color: var(--color-sky-blue-light);
+    position: relative;
+}
+
+.validation-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(0deg, var(--color-bg-main) 0%, transparent 100%);
+    z-index: 1;
+}
+
+.validation-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    position: relative;
+    z-index: 2;
+}
+
+@media (min-width: 992px) {
+    .validation-container {
+        flex-direction: row;
+        align-items: center;
+    }
+}
+
+.validation-text {
+    flex: 1;
+}
+
+.validation-text h2 {
+    font-size: 2.5rem;
+    color: var(--color-gold);
+    margin-bottom: 1.5rem;
+}
+
+.validation-text p {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    max-width: 500px;
+}
+
+.highlight-text {
+    color: var(--color-text-main);
+    font-weight: 500;
+    border-left: 3px solid var(--color-gold);
+    padding-left: 1rem;
+}
+
+.validation-graphic {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.mock-ticket {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-gold);
+    border-radius: 12px;
+    padding: 0;
+    width: 100%;
+    max-width: 350px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    transform: rotate(2deg);
+    transition: transform 0.3s ease;
+    overflow: hidden;
+}
+
+.mock-ticket:hover {
+    transform: rotate(0deg) scale(1.02);
+}
+
+.ticket-header {
+    background-color: var(--color-gold);
+    color: var(--color-bg-main);
+    padding: 1rem;
+    text-align: center;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    letter-spacing: 3px;
+}
+
+.ticket-body {
+    padding: 3rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(212, 175, 55, 0.05) 10px, rgba(212, 175, 55, 0.05) 20px);
+}
+
+.code-label {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    letter-spacing: 2px;
+}
+
+.code-value {
+    font-size: 3rem;
+    font-family: monospace;
+    font-weight: 700;
+    color: var(--color-text-main);
+    letter-spacing: 8px;
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+}

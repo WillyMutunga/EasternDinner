@@ -3,7 +3,7 @@ services:
     name: dinner-backend
     runtime: node
     rootDir: backend
-    plan: free
+    plan: starter
     buildCommand: npm install
     startCommand: node index.js
     disk:
@@ -26,7 +26,4 @@ services:
     staticPublishPath: ./dist
     envVars:
       - key: VITE_API_URL
-        fromService:
-          name: dinner-backend
-          type: web
-          property: url
+        value: https://dinner-backend.onrender.com

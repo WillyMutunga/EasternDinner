@@ -18,7 +18,7 @@ services:
       - key: JWT_SECRET
         generateValue: true
 
-  - type: static
+  - type: web
     name: dinner-frontend
     env: static
     rootDir: frontend
@@ -29,4 +29,4 @@ services:
         fromService:
           name: dinner-backend
           type: web
-          property: host
+          property: url

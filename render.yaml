@@ -1,7 +1,7 @@
 services:
   - type: web
     name: dinner-backend
-    env: node
+    runtime: node
     rootDir: backend
     plan: free
     buildCommand: npm install
@@ -20,10 +20,10 @@ services:
 
   - type: web
     name: dinner-frontend
-    env: static
+    runtime: static
     rootDir: frontend
     buildCommand: npm install && npm run build
-    publishDir: dist
+    staticPublishPath: ./dist
     envVars:
       - key: VITE_API_URL
         fromService:

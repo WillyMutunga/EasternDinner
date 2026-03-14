@@ -24,10 +24,7 @@ services:
     staticPublishPath: ./dist
     envVars:
       - key: VITE_API_URL
-        fromService:
-          name: dinner-backend
-          type: web
-          envVarKey: RENDER_EXTERNAL_URL
+        value: https://dinner-backend-1khi.onrender.com
 
 databases:
   - name: dinner-db

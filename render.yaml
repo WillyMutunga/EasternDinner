@@ -12,7 +12,7 @@ services:
           name: dinner-db
           property: connectionString
       - key: CORS_ORIGIN
-        sync: false
+        value: https://dinner-frontend.onrender.com
       - key: JWT_SECRET
         generateValue: true
 
@@ -24,7 +24,10 @@ services:
     staticPublishPath: ./dist
     envVars:
       - key: VITE_API_URL
-        value: https://dinner-backend.onrender.com
+        fromService:
+          name: dinner-backend
+          type: web
+          envVarKey: RENDER_EXTERNAL_URL
 
 databases:
   - name: dinner-db

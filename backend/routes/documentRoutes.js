@@ -47,14 +47,13 @@ router.post('/upload', authMiddleware, roleMiddleware(['super_admin', 'editor'])
     }
 
     try {
-        await db.run(
-            'INSERT INTO documents (name, filename, path, mimetype, size) VALUES (?, ?, ?, ?, ?)',
+        await db.query(
+            'INSERT INTO documents (name, filename, path, mimetype, size) VALUES ($1, $2, $3, $4, $5)',
             [name || file.originalname, file.filename, file.path, file.mimetype, file.size]
         );
         res.status(201).json({ message: 'Document uploaded successfully', file });
     } catch (err) {
         console.error(err);
-        // Clean up file if DB insert fails
         fs.unlinkSync(file.path);
         res.status(500).json({ message: 'Failed to save document info to database' });
     }
@@ -64,8 +63,8 @@ router.post('/upload', authMiddleware, roleMiddleware(['super_admin', 'editor'])
 router.get('/', async (req, res) => {
     const db = req.app.get('db');
     try {
-        const documents = await db.all('SELECT * FROM documents ORDER BY created_at DESC');
-        res.json(documents);
+        const result = await db.query('SELECT * FROM documents ORDER BY created_at DESC');
+        res.json(result.rows);
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: 'Failed to fetch documents' });
@@ -78,15 +77,14 @@ router.delete('/:id', authMiddleware, roleMiddleware(['super_admin', 'editor']),
     const db = req.app.get('db');
 
     try {
-        const document = await db.get('SELECT * FROM documents WHERE id = ?', [id]);
+        const check = await db.query('SELECT * FROM documents WHERE id = $1', [id]);
+        const document = check.rows[0];
         if (!document) {
             return res.status(404).json({ message: 'Document not found' });
         }
 
-        // Remove from database
-        await db.run('DELETE FROM documents WHERE id = ?', [id]);
+        await db.query('DELETE FROM documents WHERE id = $1', [id]);
 
-        // Remove from filesystem
         if (fs.existsSync(document.path)) {
             fs.unlinkSync(document.path);
         }

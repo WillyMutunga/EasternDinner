@@ -5,7 +5,7 @@ const authRoutes = require('./routes/authRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const ticketRoutes = require('./routes/ticketRoutes');
 const documentRoutes = require('./routes/documentRoutes');
-const { initDB } = require('./db');
+const { pool, initDB } = require('./db');
 const path = require('path');
 
 const app = express();
@@ -25,8 +25,8 @@ app.use('/api/tickets', ticketRoutes);
 app.use('/api/documents', documentRoutes);
 
 // Database Initialization
-initDB().then(db => {
-    app.set('db', db);
+initDB().then(() => {
+    app.set('db', pool);
     console.log('Database initialized');
     
     app.listen(PORT, () => {
@@ -34,4 +34,5 @@ initDB().then(db => {
     });
 }).catch(err => {
     console.error('Failed to initialize database:', err);
+    process.exit(1);
 });

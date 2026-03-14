@@ -8,7 +8,9 @@ services:
     startCommand: node index.js
     envVars:
       - key: DATABASE_URL
-        value: ./database.sqlite
+        fromDatabase:
+          name: dinner-db
+          property: connectionString
       - key: CORS_ORIGIN
         sync: false
       - key: JWT_SECRET
@@ -23,3 +25,9 @@ services:
     envVars:
       - key: VITE_API_URL
         value: https://dinner-backend.onrender.com
+
+databases:
+  - name: dinner-db
+    plan: free
+    databaseName: dinner
+    user: dinner_user

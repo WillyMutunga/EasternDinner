@@ -18,10 +18,10 @@ services:
 
   - type: web
     name: dinner-frontend
-    runtime: static
+    runtime: node
     rootDir: frontend
-    buildCommand: VITE_API_URL=https://dinner-backend-1khi.onrender.com npm install && npm run build
-    staticPublishPath: ./dist
+    buildCommand: npm install && npm run build
+    startCommand: node server.js
     envVars:
       - key: VITE_API_URL
         value: https://dinner-backend-1khi.onrender.com

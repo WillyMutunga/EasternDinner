@@ -159,7 +159,7 @@ const Checkout = () => {
                         </div>
                         <div className="summary-item">
                             <span>Ticket Price</span>
-                            <span>$250.00</span>
+                            <span>KSH2000.00</span>
                         </div>
                         <div className="summary-divider"></div>
                         <p className="summary-note">Fill in your details to reserve your ticket. Payment can be made in cash or via our digital portal after registration.</p>

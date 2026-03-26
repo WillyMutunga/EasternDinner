@@ -32,13 +32,19 @@ const Checkout = () => {
         setIsProcessing(true);
 
         try {
+            console.log('Submitting registration form with data:', formData);
             const response = await api.post('/api/tickets', formData);
+            console.log('Registration successful:', response.data);
             setTicketId(response.data.id);
             setIsProcessing(false);
             setIsSuccess(true);
         } catch (err) {
-            console.error(err);
-            setError(err.response?.data?.message || 'Failed to submit registration. Please try again.');
+            console.error('Registration error:', err);
+            console.error('Error response:', err.response);
+            console.error('Error message:', err.message);
+            const errorMsg = err.response?.data?.message || err.message || 'Failed to submit registration. Please try again.';
+            console.log('Setting error to:', errorMsg);
+            setError(errorMsg);
             setIsProcessing(false);
         }
     };
@@ -69,11 +75,11 @@ const Checkout = () => {
                             <div className="payment-details-card">
                                 <div className="detail-row">
                                     <span>Business Number:</span>
-                                    <strong>522522</strong>
+                                    <strong>542542</strong>
                                 </div>
                                 <div className="detail-row">
                                     <span>Account Number:</span>
-                                    <strong>1299657028</strong>
+                                    <strong>05508795176151</strong>
                                 </div>
                                 <div className="detail-row">
                                     <span>Amount:</span>

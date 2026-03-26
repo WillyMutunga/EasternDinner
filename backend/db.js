@@ -5,7 +5,11 @@ const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
     ssl: process.env.DATABASE_URL && process.env.DATABASE_URL.includes('render.com')
         ? { rejectUnauthorized: false }
-        : false
+        : false,
+    max: 20,
+    idleTimeoutMillis: 10000,
+    connectionTimeoutMillis: 5000,
+    min: 2
 });
 
 async function initDB() {
@@ -20,7 +24,7 @@ async function initDB() {
         CREATE TABLE IF NOT EXISTS tickets (
             id SERIAL PRIMARY KEY,
             name TEXT,
-            email TEXT,
+            email TEXT UNIQUE,
             phone TEXT,
             status TEXT DEFAULT 'pending',
             created_at TIMESTAMP DEFAULT NOW()
@@ -35,6 +39,10 @@ async function initDB() {
             size INTEGER,
             created_at TIMESTAMP DEFAULT NOW()
         );
+        
+        CREATE INDEX IF NOT EXISTS idx_tickets_email ON tickets(email);
+        CREATE INDEX IF NOT EXISTS idx_tickets_phone ON tickets(phone);
+        CREATE INDEX IF NOT EXISTS idx_tickets_created_at ON tickets(created_at DESC);
     `);
 
     // Insert default admins if not exists

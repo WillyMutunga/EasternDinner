@@ -13,16 +13,12 @@ router.post('/', async (req, res) => {
     }
 
     try {
-        console.log('Attempting to create ticket with:', { name, email, phone });
         const result = await db.query(
             'INSERT INTO tickets (name, email, phone, status) VALUES ($1, $2, $3, $4) RETURNING id',
             [name, email, phone, 'pending']
         );
-        console.log('Ticket created successfully:', result.rows[0]);
         res.status(201).json({ id: result.rows[0].id, message: 'Ticket request saved. Please proceed with payment.' });
     } catch (err) {
-        console.error('Error creating ticket:', err.message);
-        console.error('Full error:', err);
         res.status(500).json({ message: 'Failed to save ticket details', error: err.message });
     }
 });
@@ -53,14 +49,27 @@ router.get('/verify', async (req, res) => {
     }
 });
 
-// Admin: Get all tickets
+// Admin: Get all tickets with pagination
 router.get('/admin', authMiddleware, roleMiddleware(['super_admin', 'editor']), async (req, res) => {
     const db = req.app.get('db');
+    const page = parseInt(req.query.page) || 1;
+    const limit = 50;
+    const offset = (page - 1) * limit;
+    
     try {
-        const result = await db.query('SELECT * FROM tickets ORDER BY created_at DESC');
-        res.json(result.rows);
+        const result = await db.query(
+            'SELECT * FROM tickets ORDER BY created_at DESC LIMIT $1 OFFSET $2',
+            [limit, offset]
+        );
+        const countResult = await db.query('SELECT COUNT(*) FROM tickets');
+        res.json({
+            data: result.rows,
+            total: parseInt(countResult.rows[0].count),
+            page,
+            limit,
+            pages: Math.ceil(parseInt(countResult.rows[0].count) / limit)
+        });
     } catch (err) {
-        console.error(err);
         res.status(500).json({ message: 'Failed to fetch tickets' });
     }
 });

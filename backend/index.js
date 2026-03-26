@@ -24,7 +24,10 @@ app.use(cors({
         // Allow requests with no origin (like mobile apps, curl, Postman)
         if (!origin) return callback(null, true);
         // Allow any *.onrender.com domain
-        if (origin.endsWith('.onrender.com')) return callback(null, true);
+        if (origin && origin.endsWith('.onrender.com')) {
+            console.log('CORS: Render domain allowed:', origin);
+            return callback(null, true);
+        }
         // Allow explicitly listed origins
         if (allowedOrigins.includes(origin)) {
             console.log('CORS: Origin allowed');
@@ -33,7 +36,11 @@ app.use(cors({
         console.log('CORS: Origin NOT allowed. Allowed origins:', allowedOrigins);
         callback(new Error(`CORS: origin ${origin} not allowed`));
     },
-    credentials: true
+    credentials: false,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    preflightContinue: true,
+    optionsSuccessStatus: 200
 }));
 
 app.use(express.json());

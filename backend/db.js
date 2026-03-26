@@ -8,7 +8,6 @@ const pool = new Pool({
         : false,
     max: 20,
     idleTimeoutMillis: 10000,
-    connectionTimeoutMillis: 5000,
     min: 2
 });
 

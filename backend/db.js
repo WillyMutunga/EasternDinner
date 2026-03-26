@@ -6,9 +6,7 @@ const pool = new Pool({
     ssl: process.env.DATABASE_URL && process.env.DATABASE_URL.includes('render.com')
         ? { rejectUnauthorized: false }
         : false,
-    max: 20,
-    idleTimeoutMillis: 10000,
-    min: 2
+    max: 20
 });
 
 async function initDB() {

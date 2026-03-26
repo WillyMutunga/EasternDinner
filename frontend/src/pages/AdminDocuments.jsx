@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import api, { API_URL } from '../api/api';
-import { Upload, Trash2, FileText, Download, AlertCircle } from 'lucide-react';
+import { Upload, Trash2, FileText, Download, AlertCircle, LogOut } from 'lucide-react';
 import './AdminDocuments.css';
 
 const AdminDocuments = () => {
@@ -12,7 +12,17 @@ const AdminDocuments = () => {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
 
-    const token = localStorage.getItem('token');
+    const [token, setToken] = useState(localStorage.getItem('adminToken'));
+
+    // If not logged in, show login prompt
+    if (!token) {
+        return (
+            <div style={{ textAlign: 'center', padding: '3rem' }}>
+                <h2>Admin Access Required</h2>
+                <p>Please log in at <a href="/admin/tickets">/admin/tickets</a> first</p>
+            </div>
+        );
+    }
 
     useEffect(() => {
         fetchDocuments();
@@ -81,9 +91,19 @@ const AdminDocuments = () => {
         }
     };
 
+    const handleLogout = () => {
+        localStorage.removeItem('adminToken');
+        window.location.href = '/admin/tickets';
+    };
+
     return (
         <div className="admin-documents-container">
-            <h1>Event Documentation Management</h1>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+                <h1>Event Documentation Management</h1>
+                <button onClick={handleLogout} className="btn btn-secondary" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <LogOut size={18} /> Logout
+                </button>
+            </div>
             <p className="subtitle">Upload and manage materials for the attendees.</p>
 
             <div className="upload-section card">

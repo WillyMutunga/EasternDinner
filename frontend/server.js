@@ -11,12 +11,35 @@ const PORT = process.env.PORT || 3000;
 // Serve static files from the dist folder
 app.use(express.static(path.join(__dirname, 'dist')));
 
-// Handle SPA routing - serve index.html for all routes that don't match static files
+// Fallback routes to index.html for SPA
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+});
+
+app.get('/admin*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+});
+
+app.get('/check-ticket*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+});
+
+app.get('/checkout*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+});
+
+app.get('/announcements*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+});
+
+// Catch all other routes and serve index.html
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
 app.listen(PORT, () => {
     console.log(`Frontend server running on port ${PORT}`);
+});
+
 });
 
